@@ -12,7 +12,7 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Switch>
-                    <Route path='/' component={ Home }/>
+                    <Route path='/' component={Home}/>
                 </Switch>
             </Router>
         </Provider>

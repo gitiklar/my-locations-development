@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { SAVE_NEW_CATEGORY } from '../actions';
+import { LOAD_DATA_FROM_LOCAL_STORAGE, SAVE_NEW_CATEGORY } from '../actions';
 
 
 const initialStateCategories = {
@@ -11,6 +11,8 @@ const categoriesReducer = produce((state , action)=>{
         case SAVE_NEW_CATEGORY:
             state.categoriesArray.push(action.payload);
             break;
+        case LOAD_DATA_FROM_LOCAL_STORAGE:
+            return action.payload.categoriesReducer;
     }
 } , initialStateCategories);
 

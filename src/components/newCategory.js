@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { savNewCategory, validateUniqueFieldInAnArray } from '../redux/actions';
 import useTitle from './useTitle';
 
-
 const NewCategory = () => {
     const [categoryName , setCategoryName] = useState(null);
-    const categories = useSelector(state=>state.categories);
+    const categories = useSelector(state=>state.categoriesReducer);
     const history = useHistory();
     const dispatch = useDispatch();
     useTitle('- new category');

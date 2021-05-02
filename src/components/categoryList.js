@@ -6,7 +6,7 @@ import useTitle from './useTitle';
 
 const CategoryList = () => {
     const [ selectedItem , setSelectedItem ] = useState('');
-    const categories = useSelector(state=>state.categories);
+    const categories = useSelector(state=>state.categoriesReducer);
     const items = categories.categoriesArray.map(({name})=>name);
     useTitle('- category list');
 

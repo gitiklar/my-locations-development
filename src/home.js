@@ -11,13 +11,13 @@ import { useSelector } from 'react-redux';
 
 const Home = () => {
 
-    const currentTitle = useSelector(state=>state.title.currentTitle);
+    const currentTitle = useSelector(state=>state.titleReducer.currentTitle);
 
     return (
         <div className="homeContainer">
             <header id="header">
                 <Row>
-                    <Col span={8}><img src={logoImg} alt="logo" /></Col>
+                    <Col span={8}><Link to="/"><img src={logoImg} alt="logo"/></Link></Col>
                     <Col span={8}><h1 className="titleText">My locations {currentTitle}</h1></Col>
                     <Col span={8}></Col>
                 </Row>
