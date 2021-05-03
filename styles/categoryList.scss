@@ -1,0 +1,27 @@
+
+
+
+@mixin inner {
+    .innerContainer {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .topCategoryTab.ant-radio-group.ant-radio-group-outline {
+            width: 100vw;
+            height: 5vh;
+            margin-bottom: 0;
+            background-color: transparent;
+        }
+
+        .ant-tabs.ant-tabs-left {
+            background-color: transparent;
+            height: calc(100% - 5vh);
+            overflow: auto;
+            .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane {
+                padding-right: 24px;
+            }
+        }       
+    }
+   
+}

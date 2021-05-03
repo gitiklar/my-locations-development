@@ -1,6 +1,6 @@
+@import "./categoryList";
+
 $header-height: 6.5vh;
-
-
 
 .homeContainer {
     width: 100vw;
@@ -108,6 +108,10 @@ $header-height: 6.5vh;
     #main {
         grid-area: main;
         height: calc((100vh - #{$header-height})*0.8);
+        .inner {
+            height: 100%;
+            @include inner;
+        }
     }
 }
 

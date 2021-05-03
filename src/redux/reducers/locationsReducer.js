@@ -14,7 +14,7 @@ const initialStateLocations = {
 const locationsReducer = produce((state , action)=>{
     switch(action.type) {
         case SAVE_NEW_LOCATION:
-            state.categoriesArray.push(action.payload);
+            state.locationsArray.push(action.payload);
             break;
         case LOAD_DATA_FROM_LOCAL_STORAGE:
             return action.payload.locationsReducer;

@@ -1,16 +1,16 @@
 import React  from 'react';
-import { Switch, Route , Link} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Switch, Route , Link } from "react-router-dom";
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
 
 import logoImg from '../styles/images/logo.jpg';
 import NewCategory from './components/newCategory';
 import CategoryList from './components/categoryList';
-import { useSelector } from 'react-redux';
 
 
 const Home = () => {
-
+    
     const currentTitle = useSelector(state=>state.titleReducer.currentTitle);
 
     return (
@@ -24,8 +24,8 @@ const Home = () => {
             </header>
             <div id="heading" >
                 <div className="menuLine">
-                <Link to="/">Home</Link>
-                <Link to="/new-category">New category</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/new-category">New category</Link>
                     <Link to="/category-list">Category-list</Link>               
                 </div>
             </div>

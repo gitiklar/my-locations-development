@@ -1,30 +1,30 @@
-import { Form , Button, Input, Modal } from 'antd';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Form , Button, Input, Modal } from 'antd';
 
 import { savNewCategory, validateUniqueFieldInAnArray } from '../redux/actions';
 import useTitle from './useTitle';
 
 const NewCategory = () => {
     const [categoryName , setCategoryName] = useState(null);
-    const categories = useSelector(state=>state.categoriesReducer);
+    const categories = useSelector(state => state.categoriesReducer);
     const history = useHistory();
     const dispatch = useDispatch();
     useTitle('- new category');
 
-    const items = categories.categoriesArray.map(({name})=>name);
+    const items = categories.categoriesArray.map(({name}) => name);
 
-    function handleOk() {
+    const handleOk = () => {
         dispatch(savNewCategory(categoryName));
         backToHome();
     }
 
-    function backToHome() {
+    const backToHome = () => {
         history.push('/');
     }
 
-    function onInputHandler(value) {
+    const onInputHandler = (value) => {
         setCategoryName(value);
     }
 

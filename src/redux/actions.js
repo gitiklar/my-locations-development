@@ -7,6 +7,10 @@ export const savNewCategory = (name) => {
     return { type: SAVE_NEW_CATEGORY , payload:{ name } };
 }
 
+export const savNewLocation = (locationData) => {
+    return { type: SAVE_NEW_LOCATION , payload: locationData };
+}
+
 export const updateTitle = (title) => {
     return { type: UPDATE_TITLE , payload: title};
 }
