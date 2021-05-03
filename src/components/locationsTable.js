@@ -4,6 +4,7 @@ import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 
 const EditableCell = ({editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
   const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+
   return (
     <td {...restProps}>
       {editing ? (<Form.Item name={dataIndex} style={{margin: 0,}} rules={[ { required: true, message: `Please Input ${title}!`, },]}> 
@@ -13,62 +14,66 @@ const EditableCell = ({editing, dataIndex, title, inputType, record, index, chil
 };
 
 const LocationsTable = ({originData}) => {
+    const [form] = Form.useForm();
+    const [data, setData] = useState(originData);
+    const [editingKey, setEditingKey] = useState('');
 
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
+    useEffect(()=>{
+            setData(originData);
+    },[originData]);
 
-  useEffect(()=>{
-        setData(originData);
-  },[originData]);
+    const isEditing = (record) => record.key === editingKey;
 
-  const isEditing = (record) => record.key === editingKey;
+    const edit = (record) => {
+        form.setFieldsValue({name: '', address: '', coordinates: '', ...record,});
+        setEditingKey(record.key);
+    };
 
-  const edit = (record) => {
-    form.setFieldsValue({name: '', address: '', coordinates: '', ...record,});
-    setEditingKey(record.key);
-  };
+    const cancel = () => {setEditingKey('');};
 
-  const cancel = () => {setEditingKey('');};
+    const save = async (key) => {
+        try {
+            const row = await form.validateFields();
+            const newData = [...data];
+            const index = newData.findIndex((item) => key === item.key);
 
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
+            if (index > -1) {
+                const item = newData[index];
+                newData.splice(index, 1, { ...item, ...row });
+                setData(newData);
+                setEditingKey('');
+            } else {
+                newData.push(row);
+                setData(newData);
+                setEditingKey('');
+            }
+        } catch (errInfo) {
+            console.log('Validate Failed:', errInfo);
+        }
+    };
 
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
-    }
-  };
-
-  const columns = [{ title: 'name'       , dataIndex: 'name'       ,  width: '25%', editable: true, }, 
-                   { title: 'address'    , dataIndex: 'address'    ,  width: '15%', editable: true, },
-                   { title: 'coordinates', dataIndex: 'coordinates',  width: '40%', editable: true, },
-                   { title: 'operation'  , dataIndex: 'operation'  ,  
-                    render: (_, record) => {
-                        const editable = isEditing(record);                                                                               
-                        return editable ? (
-                            <span>
-                                <a href="javascript:;" onClick={() => save(record.key)} style={{ marginRight: 8,}}>Save</a>
-                                    <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-                                <a>Cancel</a>
-                                </Popconfirm>
-                            </span>) : (
-                            <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>Edit</Typography.Link>);},},
-                   ];
-  const mergedColumns = columns.map((col) => {
+    const columns = [{ title: 'name'       , dataIndex: 'name'       ,  width: '25%', editable: true, }, 
+                    { title: 'address'    , dataIndex: 'address'    ,  width: '15%', editable: true, },
+                    { title: 'coordinates', dataIndex: 'coordinates',  width: '40%', editable: true, },
+                    { title: 'operation'  , dataIndex: 'operation'  ,  
+                        render: (_, record) => {
+                            const editable = isEditing(record);                                                                               
+                            return editable ? (
+                                <span>
+                                    <a href="javascript:;" onClick={() => save(record.key)} style={{ marginRight: 8,}}>Save</a>
+                                        <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+                                    <a>Cancel</a>
+                                    </Popconfirm>
+                                </span>) : (
+                                    <>
+                                        <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>Edit &nbsp;&nbsp;&nbsp;&nbsp;</Typography.Link>
+                                        <Typography.Link disabled={editingKey !== ''} onClick={() => {}}>Delete</Typography.Link>
+                                    </>
+                                );},},
+                    ];
+    const mergedColumns = columns.map((col) => {
       if (!col.editable) { return col; }
+      
         return {
             ...col, onCell: (record) => ({ 
                             record, inputType: col.dataIndex === 'coordinates' ? 'number' : 'text',
