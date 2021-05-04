@@ -17,9 +17,9 @@ const LocationsTable = ({originData}) => {
     const [form] = Form.useForm();
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
-
+    console.log(originData);
     useEffect(()=>{
-            setData(originData);
+            setData([...originData]);
     },[originData]);
 
     const isEditing = (record) => record.key === editingKey;

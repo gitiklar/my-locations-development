@@ -12,8 +12,9 @@ const NewCategory = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
+    const previousPath = pathname.slice(1 , pathname.lastIndexOf('/'));
 
-    useTitle('- new category');
+    useTitle('- new category' , previousPath ? `- ${previousPath}` : null);
 
     const items = categories.categoriesArray.map(({name}) => name);
 
