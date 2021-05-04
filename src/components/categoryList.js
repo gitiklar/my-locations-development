@@ -11,27 +11,29 @@ import useTitle from './useTitle';
 import NewLocation from './newLocation';
 import LocationsTable from './locationsTable';
 import PagesContainer from './pagesContainer';
-import { deleteCategory } from '../redux/actions';
+import { deleteCategory, setActiveCategory } from '../redux/actions';
+import RenameCategory from './renameCategory';
+import renameIcon from '../../styles/images/renameIcon.png';
 
 const CategoryList = () => {
-    const [ activeKey , setActiveKey ] = useState(null);
     const dispatch = useDispatch();
+    const activeCategory = useSelector(state => state.categoriesReducer.activeCategory);
     const categories = useSelector(state => state.categoriesReducer.categoriesArray);
     const locations = useSelector(state => state.locationsReducer.locationsArray);
     const categoriesList = categories.map(({name})=>name);
-    const locationsList = locations.filter(({category})=>category===(activeKey || categoriesList[0]));
+    const locationsList = locations.filter(({category})=>category===(activeCategory || categoriesList[0]));
     const locationsListWithKeys = locationsList.map((locationObj , index)=>{ return {...locationObj , key:index.toString()}});
     useTitle('- category list');
-    
-    const deleteCategoryHandler = () => {
-        const indexOfCurrentCategory = categories.findIndex(categoryObj=>categoryObj.name === activeKey);
+
+    const deleteCategoryHandler = (item) => {
+        const indexOfCurrentCategory = categories.findIndex(categoryObj=>categoryObj.name === item);
         const indexOfCategoryAfterDeleted = categoriesList[indexOfCurrentCategory + 1] ? indexOfCurrentCategory + 1 : categoriesList[indexOfCurrentCategory - 1] ? indexOfCurrentCategory - 1 : 0;
-        setActiveKey(categoriesList[indexOfCategoryAfterDeleted]);
-        dispatch(deleteCategory(activeKey || categoriesList[0]));
+        dispatch(deleteCategory(item));
+        dispatch(setActiveCategory(categoriesList[indexOfCategoryAfterDeleted]));
     }
 
-    const onActiveKeyChange = key => {
-        setActiveKey(key);
+    const onActiveKeyChange = item => {
+        dispatch(setActiveCategory(item));
     }
 
     return (
@@ -42,7 +44,10 @@ const CategoryList = () => {
                                                             <div className="specificCategoryContent">
                                                                 <div className="specificCategoryContentTop">
                                                                         <Link to="/category-list/new-location"><Tooltip placement="top" title="Add location"><AddLocationIcon style={{fontSize:'35px'}}/></Tooltip></Link>               
-                                                                        <Button onClick={deleteCategoryHandler} style={{backgroundColor:'transparent' , border:'none'}}><Tooltip placement="top" title="Delete category"><DeleteOutlined style={{fontSize:'25px'}}/></Tooltip></Button>
+                                                                        <div className="renameAndDeleteIconsContainer">
+                                                                            <Link to="/category-list/rename-category" style={{backgroundColor:'transparent' , border:'none'}}><Tooltip placement="top" title="Rename category"><img src={renameIcon} alt="rename icon"></img></Tooltip></Link>
+                                                                            <Button onClick={()=>deleteCategoryHandler(item)} style={{backgroundColor:'transparent' , border:'none'}}><Tooltip placement="top" title="Delete category"><DeleteOutlined style={{fontSize:'25px'}}/></Tooltip></Button>
+                                                                        </div>
                                                                 </div>
                                                                 <div>
                                                                     <LocationsTable originData = {locationsListWithKeys}/>
@@ -52,7 +57,8 @@ const CategoryList = () => {
                     </Tabs>
             }
             
-            <Route path="/category-list/new-location" render={()=><NewLocation category={activeKey || categoriesList[0]}/>}/>
+            <Route path="/category-list/new-location" render={()=><NewLocation category={activeCategory || categoriesList[0]}/>}/>
+            <Route path="/category-list/rename-category" render={()=><RenameCategory preName={activeCategory || categoriesList[0]}/>}/>
       </div>
     );
 };

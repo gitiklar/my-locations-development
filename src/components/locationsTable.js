@@ -17,7 +17,7 @@ const LocationsTable = ({originData}) => {
     const [form] = Form.useForm();
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
-    console.log(originData);
+
     useEffect(()=>{
             setData([...originData]);
     },[originData]);
