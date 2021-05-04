@@ -25,7 +25,7 @@ const LocationsTable = ({originData}) => {
     const isEditing = (record) => record.key === editingKey;
 
     const edit = (record) => {
-        form.setFieldsValue({name: '', address: '', coordinates: '', ...record,});
+        form.setFieldsValue({name: '', address: '' , latitude: '', longitude: '', ...record,});
         setEditingKey(record.key);
     };
 
@@ -52,10 +52,11 @@ const LocationsTable = ({originData}) => {
         }
     };
 
-    const columns = [{ title: 'name'       , dataIndex: 'name'       ,  width: '25%', editable: true, }, 
-                    { title: 'address'    , dataIndex: 'address'    ,  width: '15%', editable: true, },
-                    { title: 'coordinates', dataIndex: 'coordinates',  width: '40%', editable: true, },
-                    { title: 'operation'  , dataIndex: 'operation'  ,  
+    const columns = [{ title: 'name'       , dataIndex: 'name'       ,  width: '23%' , editable: true, }, 
+                    {  title: 'address'    , dataIndex: 'address'    ,  width: '23%' , editable: true, },
+                    {  title: 'latitude'   , dataIndex: 'latitude'   ,  width: '23%' , editable: true, },
+                    {  title: 'longitude'  , dataIndex: 'longitude'  ,  width: '23%' , editable: true, },
+                    {  title: 'operation'  , dataIndex: 'operation'  ,   
                         render: (_, record) => {
                             const editable = isEditing(record);                                                                               
                             return editable ? (
@@ -76,7 +77,7 @@ const LocationsTable = ({originData}) => {
       
         return {
             ...col, onCell: (record) => ({ 
-                            record, inputType: col.dataIndex === 'coordinates' ? 'number' : 'text',
+                            record, inputType: (col.dataIndex === 'latitude' || col.dataIndex === 'longitude') ? 'number' : 'text',
                             dataIndex: col.dataIndex,
                             title: col.title,
                     editing: isEditing(record),}),};});

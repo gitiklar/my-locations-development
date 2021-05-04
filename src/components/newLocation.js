@@ -34,9 +34,12 @@ const NewLocation = ({category}) => {
                      <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input location address!', },]}>
                          <Input />
                      </Form.Item>
-                     <Form.Item label="Coordinates" name="coordinates" rules={[{ required: true, message: 'Please input two coordinates!', },]}>
+                     <Form.Item label="Latitude" name="latitude" rules={[{ required: true, message: 'Please input latitude coordinate!', },]}>
                         <Input type="number"/>
-                     </Form.Item>    
+                     </Form.Item> 
+                     <Form.Item label="Longitude" name="longitude" rules={[{ required: true, message: 'Please input longitude coordinate!', },]}>
+                        <Input type="number"/>
+                     </Form.Item> 
                 </Form>
             </Modal>
         </div>
