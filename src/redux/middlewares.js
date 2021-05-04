@@ -1,8 +1,8 @@
-import { SAVE_NEW_CATEGORY , SAVE_NEW_LOCATION , LOAD_DATA_FROM_LOCAL_STORAGE } from "./actions";
+import { SAVE_NEW_CATEGORY , SAVE_NEW_LOCATION , LOAD_DATA_FROM_LOCAL_STORAGE , DELETE_CATEGORY} from "./actions";
 
 export const saveDataToLocalStorageMiddleware = ({getState}) => next => action => {
     const nextAction = next(action);
-    if(action.type !== SAVE_NEW_CATEGORY && action.type !== SAVE_NEW_LOCATION) return nextAction;
+    if(action.type !== SAVE_NEW_CATEGORY && action.type !== SAVE_NEW_LOCATION && action.type!== DELETE_CATEGORY) return nextAction;
     localStorage.setItem('myLocationsData',JSON.stringify(getState()));
     return nextAction;
 }

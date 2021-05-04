@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Form , Button, Input, Modal } from 'antd';
 
 import { savNewCategory, validateUniqueFieldInAnArray } from '../redux/actions';
@@ -11,17 +11,19 @@ const NewCategory = () => {
     const categories = useSelector(state => state.categoriesReducer);
     const history = useHistory();
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+
     useTitle('- new category');
 
     const items = categories.categoriesArray.map(({name}) => name);
 
     const handleOk = () => {
         dispatch(savNewCategory(categoryName));
-        backToHome();
+        backToPreviousPath();
     }
 
-    const backToHome = () => {
-        history.push('/');
+    const backToPreviousPath = () => {
+        history.push(pathname.slice(0 , pathname.lastIndexOf('/')));
     }
 
     const onInputHandler = (value) => {
@@ -30,9 +32,9 @@ const NewCategory = () => {
 
     return (
         <div className="newCategoryContainer">
-            <Modal visible={true} title="New Category" onCancel={backToHome} footer={[
+            <Modal visible={true} title="New Category" onCancel={backToPreviousPath} footer={[
                 <Button form="newCategoryForm" key="submit" type="primary" htmlType="submit"> Create </Button>,
-                <Button key="back" onClick={backToHome}> Return </Button>,]}>
+                <Button key="back" onClick={backToPreviousPath}> Return </Button>,]}>
 
                 <Form id="newCategoryForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
                     <Form.Item label="Category name" name="categoryName"

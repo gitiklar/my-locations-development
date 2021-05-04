@@ -83,7 +83,7 @@ const LocationsTable = ({originData}) => {
 
     return (
         <Form form={form} component={false}>
-            <Table size="small" components={{ body: { cell: EditableCell, },}} bordered dataSource={data} columns={mergedColumns} rowClassName="editable-row" pagination={{ pageSize: 5 , onChange: cancel,}}/>
+            <Table size="large" components={{ body: { cell: EditableCell, },}} bordered dataSource={data} columns={mergedColumns} rowClassName="editable-row" pagination={{ pageSize: 5 , onChange: cancel,}}/>
         </Form>
     );
 };

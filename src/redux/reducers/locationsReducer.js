@@ -1,14 +1,9 @@
 import produce from 'immer';
-import { LOAD_DATA_FROM_LOCAL_STORAGE, SAVE_NEW_LOCATION } from '../actions';
+import { DELETE_CATEGORY, LOAD_DATA_FROM_LOCAL_STORAGE, SAVE_NEW_LOCATION } from '../actions';
 
 
 const initialStateLocations = {
-    locationsArray:[{
-        name: '', 
-        address: '',
-        coordinates: '',
-        category: '',
-    }],
+    locationsArray:[],
 };
 
 const locationsReducer = produce((state , action)=>{
@@ -18,6 +13,9 @@ const locationsReducer = produce((state , action)=>{
             break;
         case LOAD_DATA_FROM_LOCAL_STORAGE:
             return action.payload.locationsReducer;
+        case DELETE_CATEGORY:
+            state.locationsArray = state.locationsArray.filter(locationObj => locationObj.category!==action.payload);
+            break;
     }
 } , initialStateLocations);
 
