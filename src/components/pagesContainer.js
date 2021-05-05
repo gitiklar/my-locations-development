@@ -23,7 +23,7 @@ const PagesContainer = ({children}) => {
             <div id="heading" >
                 <div className="menuLine">
                     <Link to="/">Home</Link>
-                    <Link to="/category-list">Category-list</Link>     
+                    <Link to="/category-list">Category list</Link>     
                     <Link to={`${pathname!=="/" ? pathname:''}/new-category`}>New category</Link>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Form , Button, Input, Modal } from 'antd';
@@ -7,12 +7,12 @@ import { saveNewLocation } from '../redux/actions';
 import useTitle from '../customHooks/useTitle';
 
 const NewLocation = () => {
-    const activeCategory = useSelector(state=>state.categoriesReducer.activeCategory);
+    const activeCategory = useSelector(state => state.categoriesReducer.activeCategory);
     const history = useHistory();
     const dispatch = useDispatch();
     useTitle('- new location');
 
-    const handleOk = (locationData) => {
+    const handleOk = locationData => {
         dispatch(saveNewLocation({...locationData , category: activeCategory}));
         backToCategoryList();
     }
@@ -24,9 +24,9 @@ const NewLocation = () => {
     return (
         <div className="newLocationContainer">
             <Modal visible={true} title="New Location" onCancel={backToCategoryList} footer={[
-
                 <Button form="newLocationForm" key="submit" type="primary" htmlType="submit"> Add </Button>,
-                <Button key="back" onClick={backToCategoryList}> Return </Button>,]}>
+                <Button key="back" onClick={backToCategoryList}> Return </Button>,]}
+            >
 
                 <Form id="newLocationForm" onFinish={handleOk} name="basic">
                     <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input location name!', },]}>

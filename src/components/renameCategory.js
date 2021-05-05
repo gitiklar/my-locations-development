@@ -28,7 +28,7 @@ const RenameCategory = () => {
         history.push(pathname.slice(0 , pathname.lastIndexOf('/')));
     }
 
-    const onInputHandler = (value) => {
+    const onInputHandler = value => {
         setNewName(value);
     }
 
