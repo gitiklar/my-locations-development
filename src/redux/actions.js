@@ -6,11 +6,11 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const RENAME_CATEGORY = 'RENAME_CATEGORY';
 export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
 
-export const savNewCategory = name => {
+export const saveNewCategory = name => {
     return { type: SAVE_NEW_CATEGORY , payload: { name } };
 }
 
-export const savNewLocation = locationData => {
+export const saveNewLocation = locationData => {
     return { type: SAVE_NEW_LOCATION , payload: locationData };
 }
 

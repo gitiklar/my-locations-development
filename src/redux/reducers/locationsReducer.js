@@ -1,6 +1,5 @@
-import produce from 'immer';
+ import produce from 'immer';
 import { DELETE_CATEGORY, LOAD_DATA_FROM_LOCAL_STORAGE, RENAME_CATEGORY, SAVE_NEW_LOCATION } from '../actions';
-
 
 const initialStateLocations = {
     locationsArray:[],

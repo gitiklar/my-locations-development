@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Form , Button, Input, Modal } from 'antd';
 
-import { savNewLocation } from '../redux/actions';
-import useTitle from './useTitle';
+import { saveNewLocation } from '../redux/actions';
+import useTitle from '../customHooks/useTitle';
 
-const NewLocation = ({category}) => {
+const NewLocation = () => {
+    const activeCategory = useSelector(state=>state.categoriesReducer.activeCategory);
     const history = useHistory();
     const dispatch = useDispatch();
     useTitle('- new location');
 
     const handleOk = (locationData) => {
-        dispatch(savNewLocation({...locationData , category}));
+        dispatch(saveNewLocation({...locationData , category: activeCategory}));
         backToCategoryList();
     }
 

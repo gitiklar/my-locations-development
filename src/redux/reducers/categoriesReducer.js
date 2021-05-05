@@ -11,9 +11,11 @@ const categoriesReducer = produce((state , action) => {
     switch(action.type) {
         case SAVE_NEW_CATEGORY:
             state.categoriesArray.push(action.payload);
+            if(!state.activeCategory) state.activeCategory = action.payload.name;
             break;
         case LOAD_DATA_FROM_LOCAL_STORAGE:
             state.categoriesArray = action.payload.categoriesReducer.categoriesArray;
+            if(!state.activeCategory && action.payload.categoriesReducer.categoriesArray[0]) state.activeCategory = action.payload.categoriesReducer.categoriesArray[0].name;
             break;
         case DELETE_CATEGORY:
             state.categoriesArray.splice(state.categoriesArray.findIndex(item => item.name === action.payload) , 1);

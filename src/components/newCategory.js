@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Form , Button, Input, Modal } from 'antd';
 
-import { savNewCategory, validateUniqueFieldInAnArray } from '../redux/actions';
-import useTitle from './useTitle';
+import { saveNewCategory, validateUniqueFieldInAnArray } from '../redux/actions';
+import useTitle from '../customHooks/useTitle';
 
 const NewCategory = () => {
     const [categoryName , setCategoryName] = useState(null);
@@ -19,7 +19,7 @@ const NewCategory = () => {
     const items = categories.categoriesArray.map(({name}) => name);
 
     const handleOk = () => {
-        dispatch(savNewCategory(categoryName));
+        dispatch(saveNewCategory(categoryName));
         backToPreviousPath();
     }
 

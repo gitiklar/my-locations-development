@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { Form , Button, Input, Modal } from 'antd';
+import { Form, Button, Input, Modal } from 'antd';
 
-import { renameCategory, setActiveCategory, validateUniqueFieldInAnArray } from '../redux/actions';
-import useTitle from './useTitle';
+import { renameCategory, validateUniqueFieldInAnArray } from '../redux/actions';
+import useTitle from '../customHooks/useTitle';
 
 const RenameCategory = ({preName}) => {
     const [newName , setNewName] = useState(null);

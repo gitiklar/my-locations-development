@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 import Home from './components/home';
 import NewCategory from './components/newCategory';
 import CategoryList from './components/categoryList';
-import '../styles/main.scss';
 import store from './redux/store';
+import '../styles/main.scss';
 
 const App = () => {
 

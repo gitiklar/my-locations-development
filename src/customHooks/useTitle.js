@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+
 import { updateTitle } from '../redux/actions';
 
 const useTitle = (title , preTitle) => {
@@ -7,7 +8,7 @@ const useTitle = (title , preTitle) => {
     useEffect(()=>{
         dispatch(updateTitle(title));
         return (()=>{
-            dispatch(updateTitle(preTitle? preTitle : ''));
+            dispatch(updateTitle(preTitle ? preTitle : ''));
         });
     },[]);
 }

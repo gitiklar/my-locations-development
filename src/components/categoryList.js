@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route , Link} from "react-router-dom";
 import { Tabs , Tooltip, Button, Empty } from 'antd'; 
@@ -7,7 +7,7 @@ import AddLocationIcon from '@material-ui/icons/AddLocation';
 import 'antd/dist/antd.css';
 const { TabPane } = Tabs;
 
-import useTitle from './useTitle';
+import useTitle from '../customHooks/useTitle';
 import NewLocation from './newLocation';
 import LocationsTable from './locationsTable';
 import PagesContainer from './pagesContainer';
@@ -21,12 +21,12 @@ const CategoryList = () => {
     const categories = useSelector(state => state.categoriesReducer.categoriesArray);
     const locations = useSelector(state => state.locationsReducer.locationsArray);
     const categoriesList = categories.map(({name})=>name);
-    const locationsList = locations.filter(({category})=>category===(activeCategory || categoriesList[0]));
+    const locationsList = locations.filter(({category}) => category === activeCategory);
     const locationsListWithKeys = locationsList.map((locationObj , index)=>{ return {...locationObj , key:index.toString()}});
     useTitle('- category list');
 
-    const deleteCategoryHandler = (item) => {
-        const indexOfCurrentCategory = categories.findIndex(categoryObj=>categoryObj.name === item);
+    const deleteCategoryHandler = item => {
+        const indexOfCurrentCategory = categories.findIndex(categoryObj => categoryObj.name === item);
         const indexOfCategoryAfterDeleted = categoriesList[indexOfCurrentCategory + 1] ? indexOfCurrentCategory + 1 : categoriesList[indexOfCurrentCategory - 1] ? indexOfCurrentCategory - 1 : 0;
         dispatch(deleteCategory(item));
         dispatch(setActiveCategory(categoriesList[indexOfCategoryAfterDeleted]));
@@ -39,7 +39,7 @@ const CategoryList = () => {
     return (
       <div className="innerContainer">
             {!categoriesList.length ? <div className="emptyImage"><Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /></div> : 
-                    <Tabs tabPosition="left" defaultActiveKey={categoriesList[0]} onChange={onActiveKeyChange}>
+                    <Tabs tabPosition="left" defaultActiveKey={activeCategory} onChange={onActiveKeyChange}>
                             {categoriesList.map(item => <TabPane tab={item} key={item}>
                                                             <div className="specificCategoryContent">
                                                                 <div className="specificCategoryContentTop">
@@ -57,8 +57,8 @@ const CategoryList = () => {
                     </Tabs>
             }
             
-            <Route path="/category-list/new-location" render={()=><NewLocation category={activeCategory || categoriesList[0]}/>}/>
-            <Route path="/category-list/rename-category" render={()=><RenameCategory preName={activeCategory || categoriesList[0]}/>}/>
+            <Route path="/category-list/new-location" component = { NewLocation }/>
+            <Route path="/category-list/rename-category" render={()=><RenameCategory preName={activeCategory}/>}/>
       </div>
     );
 };
