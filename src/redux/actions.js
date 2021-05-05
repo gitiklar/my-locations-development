@@ -6,6 +6,7 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const RENAME_CATEGORY = 'RENAME_CATEGORY';
 export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
 export const UPDATE_ROW = 'UPDATE_ROW';
+export const DELETE_ROW = 'DELETE_ROW';
 
 export const saveNewCategory = name => {
     return { type: SAVE_NEW_CATEGORY , payload: { name } };
@@ -44,4 +45,8 @@ export const setActiveCategory = categoryName => {
 
 export const updateRow = (indexInSpecificCategoryList , row) => {
     return { type: UPDATE_ROW ,  payload: { indexInSpecificCategoryList , row }};
+}
+
+export const deleteRow = indexInSpecificCategoryList => {
+    return { type: DELETE_ROW ,  payload: { indexInSpecificCategoryList }};
 }

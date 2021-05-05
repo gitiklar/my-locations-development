@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateRow } from '../redux/actions';
+import { deleteRow, updateRow } from '../redux/actions';
 
 const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
     const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
@@ -57,6 +57,14 @@ const EditableCell = ({ editing, dataIndex, title, inputType, record, index, chi
           console.log('Validate Failed:', errInfo);
         }
       };
+      
+      const deleteRowHandler = key => {
+          const newData = [...data];
+          const index = newData.findIndex((item) => key === item.key);
+          newData.splice(index, 1);
+          setData(newData);
+          dispatch(deleteRow(index));
+      }
   
     const columns = [{ title: 'name'       , dataIndex: 'name'       ,  width: '23%' , editable: true, }, 
                       {  title: 'address'    , dataIndex: 'address'    ,  width: '23%' , editable: true, },
@@ -74,7 +82,7 @@ const EditableCell = ({ editing, dataIndex, title, inputType, record, index, chi
                                   </span>) : (
                                       <>
                                           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>Edit &nbsp;&nbsp;&nbsp;&nbsp;</Typography.Link>
-                                          <Typography.Link disabled={editingKey !== ''} onClick={() => {}}>Delete</Typography.Link>
+                                          <Typography.Link disabled={editingKey !== ''} onClick={() => deleteRowHandler(record.key)}>Delete</Typography.Link>
                                       </>
                                   );},},
                       ];
