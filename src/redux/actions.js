@@ -5,6 +5,7 @@ export const LOAD_DATA_FROM_LOCAL_STORAGE = 'LOAD_DATA_FROM_LOCAL_STORAGE';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const RENAME_CATEGORY = 'RENAME_CATEGORY';
 export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
+export const UPDATE_ROW = 'UPDATE_ROW';
 
 export const saveNewCategory = name => {
     return { type: SAVE_NEW_CATEGORY , payload: { name } };
@@ -33,10 +34,14 @@ export const deleteCategory = categoryName => {
     return { type: DELETE_CATEGORY , payload: categoryName }
 }
 
-export const renameCategory = (preName ,newName) =>{
+export const renameCategory = (preName ,newName) => {
     return { type: RENAME_CATEGORY , payload: { preName , newName } };
 }
 
 export const setActiveCategory = categoryName => {
     return { type: SET_ACTIVE_CATEGORY , payload: categoryName};
+}
+
+export const updateRow = (indexInSpecificCategoryList , row) => {
+    return { type: UPDATE_ROW ,  payload: { indexInSpecificCategoryList , row }};
 }

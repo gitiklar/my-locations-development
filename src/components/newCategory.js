@@ -39,9 +39,8 @@ const NewCategory = () => {
 
                 <Form id="newCategoryForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
                     <Form.Item label="Category name" name="categoryName"
-                     rules={[{ required: true, message: 'Please input new category!', }, 
-                     ()=>validateUniqueFieldInAnArray(items),
-                     ]}><Input />
+                         rules={[{ required: true, message: 'Please input new category!', }, ()=>validateUniqueFieldInAnArray(items),]}>
+                        <Input />
                      </Form.Item>      
                 </Form>
             </Modal>

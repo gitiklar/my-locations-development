@@ -6,9 +6,10 @@ import { Form, Button, Input, Modal } from 'antd';
 import { renameCategory, validateUniqueFieldInAnArray } from '../redux/actions';
 import useTitle from '../customHooks/useTitle';
 
-const RenameCategory = ({preName}) => {
+const RenameCategory = () => {
     const [newName , setNewName] = useState(null);
     const categories = useSelector(state => state.categoriesReducer);
+    const activeCategory = useSelector(state => state.categoriesReducer.activeCategory);
     const history = useHistory();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
@@ -19,7 +20,7 @@ const RenameCategory = ({preName}) => {
     const items = categories.categoriesArray.map(({name}) => name);
 
     const handleOk = () => {
-        dispatch(renameCategory(preName ,newName));
+        dispatch(renameCategory(activeCategory ,newName));
         backToPreviousPath();
     }
 
@@ -39,9 +40,9 @@ const RenameCategory = ({preName}) => {
 
                 <Form id="newCategoryForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
                     <Form.Item label="Category name" name="categoryName"
-                     rules={[{ required: true, message: `Please input new name instead of ${preName}!`, }, 
+                     rules={[{ required: true, message: `Please input new name instead of ${activeCategory}!`, }, 
                      ()=>validateUniqueFieldInAnArray(items),
-                     ]}><Input placeholder={preName}/>
+                     ]}><Input placeholder={activeCategory}/>
                      </Form.Item>      
                 </Form>
             </Modal>

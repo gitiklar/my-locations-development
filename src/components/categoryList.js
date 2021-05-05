@@ -9,22 +9,19 @@ const { TabPane } = Tabs;
 
 import useTitle from '../customHooks/useTitle';
 import NewLocation from './newLocation';
-import LocationsTable from './locationsTable';
 import PagesContainer from './pagesContainer';
 import { deleteCategory, setActiveCategory } from '../redux/actions';
 import RenameCategory from './renameCategory';
 import renameIcon from '../../styles/images/renameIcon.png';
+import LocationsEditableTable from './locationsEditableTable';
 
 const CategoryList = () => {
     const dispatch = useDispatch();
     const activeCategory = useSelector(state => state.categoriesReducer.activeCategory);
     const categories = useSelector(state => state.categoriesReducer.categoriesArray);
-    const locations = useSelector(state => state.locationsReducer.locationsArray);
     const categoriesList = categories.map(({name})=>name);
-    const locationsList = locations.filter(({category}) => category === activeCategory);
-    const locationsListWithKeys = locationsList.map((locationObj , index)=>{ return {...locationObj , key:index.toString()}});
-    useTitle('- category list');
 
+    useTitle('- category list');
     const deleteCategoryHandler = item => {
         const indexOfCurrentCategory = categories.findIndex(categoryObj => categoryObj.name === item);
         const indexOfCategoryAfterDeleted = categoriesList[indexOfCurrentCategory + 1] ? indexOfCurrentCategory + 1 : categoriesList[indexOfCurrentCategory - 1] ? indexOfCurrentCategory - 1 : 0;
@@ -39,7 +36,7 @@ const CategoryList = () => {
     return (
       <div className="innerContainer">
             {!categoriesList.length ? <div className="emptyImage"><Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /></div> : 
-                    <Tabs tabPosition="left" defaultActiveKey={activeCategory} onChange={onActiveKeyChange}>
+                    <Tabs tabPosition="left" activeKey={activeCategory} defaultActiveKey={activeCategory} onChange={onActiveKeyChange}>
                             {categoriesList.map(item => <TabPane tab={item} key={item}>
                                                             <div className="specificCategoryContent">
                                                                 <div className="specificCategoryContentTop">
@@ -50,7 +47,7 @@ const CategoryList = () => {
                                                                         </div>
                                                                 </div>
                                                                 <div>
-                                                                    <LocationsTable originData = {locationsListWithKeys}/>
+                                                                    <LocationsEditableTable/>
                                                                 </div>
                                                             </div>
                                                         </TabPane>)}   
@@ -58,7 +55,7 @@ const CategoryList = () => {
             }
             
             <Route path="/category-list/new-location" component = { NewLocation }/>
-            <Route path="/category-list/rename-category" render={()=><RenameCategory preName={activeCategory}/>}/>
+            <Route path="/category-list/rename-category" component = { RenameCategory }/>
       </div>
     );
 };

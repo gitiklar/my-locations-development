@@ -1,5 +1,5 @@
- import produce from 'immer';
-import { DELETE_CATEGORY, LOAD_DATA_FROM_LOCAL_STORAGE, RENAME_CATEGORY, SAVE_NEW_LOCATION } from '../actions';
+import produce from 'immer';
+import { DELETE_CATEGORY, LOAD_DATA_FROM_LOCAL_STORAGE, RENAME_CATEGORY, SAVE_NEW_LOCATION, UPDATE_ROW } from '../actions';
 
 const initialStateLocations = {
     locationsArray:[],
@@ -17,6 +17,9 @@ const locationsReducer = produce((state , action)=>{
             break;
         case RENAME_CATEGORY:
             state.locationsArray = state.locationsArray.map(item => item.category === action.payload.preName ? {...item , category: action.payload.newName} : item);
+            break;
+        case UPDATE_ROW:
+            state.locationsArray.splice(action.payload.indexToReplace , 1 , action.payload.row);
             break;
     }
 } , initialStateLocations);
