@@ -1,5 +1,5 @@
-# This app I kept in heroku , you can see it in that website URL 
-# :https://my-locations-gita.herokuapp.com/
+# This app I kept in heroku , you can see it in that website URL:
+# https://my-locations-gita.herokuapp.com/
 
 # To run this project from the localhost you need: 
 - 1.) Download this repository.
