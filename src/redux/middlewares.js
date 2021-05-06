@@ -1,4 +1,5 @@
 import { SAVE_NEW_CATEGORY , SAVE_NEW_LOCATION , LOAD_DATA_FROM_LOCAL_STORAGE , DELETE_CATEGORY, RENAME_CATEGORY, UPDATE_ROW, DELETE_ROW } from "./actions";
+import myData from '../myData';
 
 export const saveDataToLocalStorageMiddleware = ({ getState }) => next => action => {
     const listActionsForSaveDataToLocalStorage = [ SAVE_NEW_CATEGORY , SAVE_NEW_LOCATION , DELETE_CATEGORY , RENAME_CATEGORY , UPDATE_ROW , DELETE_ROW ];
@@ -11,6 +12,8 @@ export const saveDataToLocalStorageMiddleware = ({ getState }) => next => action
 export const loadDataFromLocalStorageMiddleware = store => next => action => {
     if(action.type !== LOAD_DATA_FROM_LOCAL_STORAGE) return next(action);
     action.payload = JSON.parse(localStorage.getItem('myLocationsData'));
+    //add this row to fill data
+    //if(!action.payload) action.payload = myData;
     if(!action.payload) return;
     return next(action);
 }
