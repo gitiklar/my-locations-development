@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route , Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Tabs , Tooltip, Button, Empty } from 'antd'; 
 import { DeleteOutlined } from '@ant-design/icons';
 import AddLocationIcon from '@material-ui/icons/AddLocation';

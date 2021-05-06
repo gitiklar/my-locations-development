@@ -15,7 +15,8 @@ const categoriesReducer = produce((state , action) => {
             break;
         case LOAD_DATA_FROM_LOCAL_STORAGE:
             state.categoriesArray = action.payload.categoriesReducer.categoriesArray;
-            if(!state.activeCategory && action.payload.categoriesReducer.categoriesArray[0]) state.activeCategory = action.payload.categoriesReducer.categoriesArray[0].name;
+            if(!state.activeCategory && action.payload.categoriesReducer.categoriesArray[0]) 
+                state.activeCategory = action.payload.categoriesReducer.categoriesArray[0].name;
             break;
         case DELETE_CATEGORY:
             state.categoriesArray.splice(state.categoriesArray.findIndex(item => item.name === action.payload) , 1);

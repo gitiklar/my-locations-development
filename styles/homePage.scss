@@ -1,4 +1,5 @@
-$banner-color: rgb(80, 47, 47);
+//$banner-color: rgb(80, 47, 47);
+$banner-color: gray;
 @mixin homePage {
 
     .homePage {
@@ -51,6 +52,16 @@ $banner-color: rgb(80, 47, 47);
                     
                     h2 , h3 {
                         font-size: 4vw;
+                    }
+                }
+                
+                @media only screen and (max-height: 500px) {
+                    h1 {
+                        font-size: 4vh;
+                    }
+                    
+                    h2 , h3 {
+                        font-size: 3vh;
                     }
                 }
             }

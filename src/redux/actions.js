@@ -20,13 +20,6 @@ export const updateTitle = title => {
     return { type: UPDATE_TITLE , payload: title};
 }
 
-export const validateUniqueFieldInAnArray = items => ({ validator(_, value) {
-        if(items.includes(value))
-            return Promise.reject('This category is already exists!');
-        return Promise.resolve();
-    }
-});
-
 export const loadDataFromLocalStorage = () => {
     return { type: LOAD_DATA_FROM_LOCAL_STORAGE };
 }
@@ -50,3 +43,10 @@ export const updateRow = (indexInSpecificCategoryList , row) => {
 export const deleteRow = indexInSpecificCategoryList => {
     return { type: DELETE_ROW ,  payload: { indexInSpecificCategoryList }};
 }
+
+export const validateUniqueFieldInAnArray = items => ({ validator(_, value) {
+    if(items.includes(value))
+        return Promise.reject('This category is already exists!');
+    return Promise.resolve();
+}
+});
