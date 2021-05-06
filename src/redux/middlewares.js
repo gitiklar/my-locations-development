@@ -15,15 +15,17 @@ export const loadDataFromLocalStorageMiddleware = store => next => action => {
     return next(action);
 }
 
-export const calcRealIndexToReplaceRowMiddleware = ({ getState }) => next => action => {
+export const calcRealIndexToUpdateOrDeleteRowMiddleware = ({ getState }) => next => action => {
     if(action.type !== UPDATE_ROW && action.type !== DELETE_ROW) return next(action);
+
     const locationsArray =  getState().locationsReducer.locationsArray;
-    let realIndexOfRowTmp = -1;
+    let realIndexOfRow = -1;
     for(let i = 0 ; i < locationsArray.length ; i++) {
-        locationsArray[i].category === getState().categoriesReducer.activeCategory && realIndexOfRowTmp++;
-        if(realIndexOfRowTmp === action.payload.indexInSpecificCategoryList) { realIndexOfRowTmp = i; break; }
+        locationsArray[i].category === getState().categoriesReducer.activeCategory && realIndexOfRow++;
+        if(realIndexOfRow === action.payload.indexInSpecificCategoryList) { realIndexOfRow = i; break; }
     }
-    action.payload.realIndexOfRow = realIndexOfRowTmp;
+    action.payload.realIndexOfRow = realIndexOfRow;
     action.type === UPDATE_ROW && (action.payload.row.category = getState().categoriesReducer.activeCategory);
+    
     return next(action);
 }

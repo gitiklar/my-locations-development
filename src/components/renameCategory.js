@@ -15,7 +15,7 @@ const RenameCategory = () => {
     const { pathname } = useLocation();
     const previousPath = pathname.slice(1 , pathname.lastIndexOf('/'));
 
-    useTitle('- rename category' , previousPath ? `- ${previousPath}` : null);
+    useTitle('- rename category' , `- ${previousPath}`);
 
     const items = categories.categoriesArray.map(({name}) => name);
 

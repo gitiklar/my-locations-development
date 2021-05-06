@@ -1,7 +1,6 @@
 import produce from 'immer';
 import { DELETE_CATEGORY, LOAD_DATA_FROM_LOCAL_STORAGE, RENAME_CATEGORY, SAVE_NEW_CATEGORY, SET_ACTIVE_CATEGORY } from '../actions';
 
-
 const initialStateCategories = {
     categoriesArray:[],
     activeCategory: null,

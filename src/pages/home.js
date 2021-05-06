@@ -18,6 +18,6 @@ const Home = () => {
         </div>
     );
 };
-const HomeWithContainer = () => <PagesContainer><Home/></PagesContainer>;
 
+const HomeWithContainer = () => <PagesContainer><Home/></PagesContainer>;
 export default HomeWithContainer;

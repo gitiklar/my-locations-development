@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Home from './components/home';
+import Home from './pages/home';
+import CategoryList from './pages/categoryList';
 import NewCategory from './components/newCategory';
-import CategoryList from './components/categoryList';
 import NewLocation from './components/newLocation';
 import RenameCategory from './components/renameCategory';
 import store from './redux/store';

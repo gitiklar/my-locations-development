@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import logoImg from '../../styles/images/logo.jpg';
 
 const PagesContainer = ({children}) => {
-    
+
     const currentTitle = useSelector(state=>state.titleReducer.currentTitle);
     const { pathname } = useLocation();
 

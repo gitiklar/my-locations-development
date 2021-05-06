@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Form , Button, Input, Modal } from 'antd';
 
 import { saveNewLocation } from '../redux/actions';
@@ -10,7 +10,10 @@ const NewLocation = () => {
     const activeCategory = useSelector(state => state.categoriesReducer.activeCategory);
     const history = useHistory();
     const dispatch = useDispatch();
-    useTitle('- new location');
+    const { pathname } = useLocation();
+    const previousPath = pathname.slice(1 , pathname.lastIndexOf('/'));
+
+    useTitle('- new location' , `- ${previousPath}`);
 
     const handleOk = locationData => {
         dispatch(saveNewLocation({...locationData , category: activeCategory}));

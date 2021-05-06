@@ -7,11 +7,11 @@ import AddLocationIcon from '@material-ui/icons/AddLocation';
 import 'antd/dist/antd.css';
 const { TabPane } = Tabs;
 
-import useTitle from '../customHooks/useTitle';
 import PagesContainer from './pagesContainer';
+import LocationsEditableTable from '../components/locationsTableEditable';
+import useTitle from '../customHooks/useTitle';
 import { deleteCategory, setActiveCategory } from '../redux/actions';
 import renameIcon from '../../styles/images/renameIcon.png';
-import LocationsEditableTable from './locationsTableEditable';
 
 const CategoryList = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,8 @@ const CategoryList = () => {
     const categories = useSelector(state => state.categoriesReducer.categoriesArray);
     const categoriesList = categories.map(({name})=>name);
 
-    useTitle('- category list');
+    useTitle(`- category list`);
+
     const deleteCategoryHandler = item => {
         const indexOfCurrentCategory = categories.findIndex(categoryObj => categoryObj.name === item);
         const indexOfCategoryAfterDeleted = categoriesList[indexOfCurrentCategory + 1] ? indexOfCurrentCategory + 1 : categoriesList[indexOfCurrentCategory - 1] ? indexOfCurrentCategory - 1 : 0;
