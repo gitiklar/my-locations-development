@@ -21,7 +21,7 @@ const locationsReducer = produce((state , action)=>{
         case UPDATE_ROW:
             state.locationsArray.splice(action.payload.realIndexOfRow , 1 , action.payload.row);
             break;
-        case DELETE_ROW: 
+        case DELETE_ROW:
             state.locationsArray.splice(action.payload.realIndexOfRow , 1);
             break;
     }

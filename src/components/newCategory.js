@@ -35,7 +35,8 @@ const NewCategory = () => {
         <div className="newCategoryContainer">
             <Modal visible={true} title="New Category" onCancel={backToPreviousPath} footer={[
                 <Button form="newCategoryForm" key="submit" type="primary" htmlType="submit"> Create </Button>,
-                <Button key="back" onClick={backToPreviousPath}> Return </Button>,]}>
+                <Button key="back" onClick={backToPreviousPath}> Return </Button>,]}
+            >
 
                 <Form id="newCategoryForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
                     <Form.Item label="Category name" name="categoryName"
