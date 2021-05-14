@@ -12,8 +12,8 @@ export const saveDataToLocalStorageMiddleware = ({ getState }) => next => action
 export const loadDataFromLocalStorageMiddleware = store => next => action => {
     if(action.type !== LOAD_DATA_FROM_LOCAL_STORAGE) return next(action);
     action.payload = JSON.parse(localStorage.getItem('myLocationsData'));
-    //add this row to fill data
-    //if(!action.payload) action.payload = myData;
+    //Remove this row if you do not want to boot the app in the data
+    if(!action.payload) action.payload = myData;
     if(!action.payload) return;
     return next(action);
 }
