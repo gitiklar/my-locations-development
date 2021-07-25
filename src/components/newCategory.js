@@ -33,17 +33,22 @@ const NewCategory = () => {
     }
 
     return (
-        <div className="newCategoryContainer">
+        <div className="newCandyContainer">
             <Modal visible={true} title="New Category" onCancel={backToPreviousPath} footer={[
-                <Button form="newCategoryForm" key="submit" type="primary" htmlType="submit"> Create </Button>,
+                <Button form="newCandyForm" key="submit" type="primary" htmlType="submit"> Create </Button>,
                 <Button key="back" onClick={backToPreviousPath}> Return </Button>,]}
             >
 
-                <Form id="newCategoryForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
-                    <Form.Item label="Category name" name="categoryName"
-                         rules={[{ required: true, message: 'Please input new category!', }, ()=>validateUniqueFieldInAnArray(items),]}>
-                        <Input />
-                     </Form.Item>      
+                <Form id="newCandyForm" onFinish={handleOk}  onInput={(e)=>onInputHandler(e.target.value)} name="basic">
+                    <Form.Item name="Candy name" rules={[{ required: true, message: 'Please enter candy name!',},]}>
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="candy name" />
+                    </Form.Item>
+                    <Form.Item name="Price" rules={[{ required: true, message: 'Please enter candy price!',},]}>
+                        <Input prefix={<WalletOutlined/>} data-address={true} type="number" placeholder="candy price"/>
+                    </Form.Item>
+                    <Form.Item name="Image">
+                        <Input  prefix={<WalletOutlined/>} data-address={true} placeholder="candy image"/>
+                    </Form.Item>
                 </Form>
             </Modal>
         </div>

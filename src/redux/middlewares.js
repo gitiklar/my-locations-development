@@ -15,6 +15,7 @@ export const loadDataFromLocalStorageMiddleware = store => next => action => {
     //Remove this row if you do not want to boot the app in the data
     if(!action.payload) action.payload = myData;
     if(!action.payload) return;
+    
     return next(action);
 }
 
